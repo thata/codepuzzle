@@ -8,6 +8,15 @@ module NumberPlace
     end
 
     def solve
+      for x in 1..9
+        for y in 1..9
+          candidates = list_candidates(x, y)
+          unless candidates.empty?
+            n = candidates.first
+            @grid.set_cell(x, y, n)
+          end
+        end
+      end
       @grid
     end
 

@@ -4,25 +4,25 @@ require './hourses_tour.rb'
 
 class TestCase_HoursesTourSolver < Test::Unit::TestCase
 
-  # def test_can_move
-  #   solver = HoursesTour::Solver.new('0'*81)
-  #   assert_equal(true, solver.can_move?(5, 5, 1, 1))
-  #   assert_equal(true, solver.can_move?(5, 5, 9, 1))
-  #   assert_equal(true, solver.can_move?(5, 5, 1, 9))
-  #   assert_equal(true, solver.can_move?(5, 5, 9, 9))
-  #   assert_equal(true, solver.can_move?(5, 5, 5, 4))
-  #   assert_equal(true, solver.can_move?(5, 5, 5, 6))
-  #   assert_equal(true, solver.can_move?(5, 5, 4, 5))
-  #   assert_equal(true, solver.can_move?(5, 5, 6, 5))
-  #   assert_equal(false, solver.can_move?(5, 5, 5, 3))
-  #   assert_equal(false, solver.can_move?(5, 5, 5, 7))
-  #   assert_equal(false, solver.can_move?(5, 5, 3, 5))
-  #   assert_equal(false, solver.can_move?(5, 5, 7, 5))
-  #   assert_equal(true, solver.can_move?(9, 8, 2, 1))
-  #   assert_equal(true, solver.can_move?(1, 2, 8, 9))
-  #   assert_equal(true, solver.can_move?(2, 9, 9, 2))
-  #   assert_equal(true, solver.can_move?(8, 1, 1, 8))
-  # end
+  def test_can_move
+    solver = HoursesTour::Solver.new('0'*81)
+    assert_equal(true, solver.can_move?(5, 5, 1, 1))
+    # assert_equal(true, solver.can_move?(5, 5, 9, 1))
+    # assert_equal(true, solver.can_move?(5, 5, 1, 9))
+    # assert_equal(true, solver.can_move?(5, 5, 9, 9))
+    # assert_equal(true, solver.can_move?(5, 5, 5, 4))
+    # assert_equal(true, solver.can_move?(5, 5, 5, 6))
+    # assert_equal(true, solver.can_move?(5, 5, 4, 5))
+    # assert_equal(true, solver.can_move?(5, 5, 6, 5))
+    # assert_equal(false, solver.can_move?(5, 5, 5, 3))
+    # assert_equal(false, solver.can_move?(5, 5, 5, 7))
+    # assert_equal(false, solver.can_move?(5, 5, 3, 5))
+    # assert_equal(false, solver.can_move?(5, 5, 7, 5))
+    # assert_equal(true, solver.can_move?(9, 8, 2, 1))
+    # assert_equal(true, solver.can_move?(1, 2, 8, 9))
+    # assert_equal(true, solver.can_move?(2, 9, 9, 2))
+    # assert_equal(true, solver.can_move?(8, 1, 1, 8))
+  end
 
   def test_movable_positions
     solver = HoursesTour::Solver.new('0'*81)

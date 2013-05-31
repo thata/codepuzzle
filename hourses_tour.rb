@@ -8,6 +8,8 @@ module HoursesTour
     end
 
     def can_move?(sx, sy, tx, ty)
+      target = [tx, ty]
+      movable_positions(sx, sy).include?(target)
     end
 
     def movable_positions(x, y)

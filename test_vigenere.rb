@@ -4,15 +4,16 @@ require './vigenere.rb'
 class TestCase_Vigenere < Test::Unit::TestCase
 
   def test_encode_vigenere
-    assert_equal("abcABC",                     encode_vigenere("aaaAAA", "ABC"))
-#    assert_equal("abcdefghijklmnopqrstuvwxyz", encode_vigenere("abcdefghijklmnopqrstuvwxyz", "A"))
-#    assert_equal("abcdefghijklmnopqrstuvwxyz", encode_vigenere("abcdefghijklmnopqrstuvwxyz", "AAA"))
-#    assert_equal("bcdefghijklmnopqrstuvwxyza", encode_vigenere("abcdefghijklmnopqrstuvwxyz", "BBB"))
-#    assert_equal("zabcdefghijklmnopqrstuvwxy", encode_vigenere("abcdefghijklmnopqrstuvwxyz", "ZZZ"))
-#    assert_equal("cccfffiiilllooorrruuuxxxaa", encode_vigenere("abcdefghijklmnopqrstuvwxyz", "CBA"))
-#    assert_equal("/* KTCJWI Ugbmwfi */",       encode_vigenere("/* SECRET Comment */", "PASS"))
-#    assert_equal("t fyn qp soybs, uyfimqz rgk eolywc",
-#                 encode_vigenere("a bit of bacon, lettuce and tomato", "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"))
+    assert_equal("abc",                     encode_vigenere("aaa", "ABC"))
+    assert_equal("abcABC",                  encode_vigenere("aaaAAA", "ABC"))
+    assert_equal("abcdefghijklmnopqrstuvwxyz", encode_vigenere("abcdefghijklmnopqrstuvwxyz", "A"))
+    assert_equal("abcdefghijklmnopqrstuvwxyz", encode_vigenere("abcdefghijklmnopqrstuvwxyz", "AAA"))
+    assert_equal("bcdefghijklmnopqrstuvwxyza", encode_vigenere("abcdefghijklmnopqrstuvwxyz", "BBB"))
+    assert_equal("zabcdefghijklmnopqrstuvwxy", encode_vigenere("abcdefghijklmnopqrstuvwxyz", "ZZZ"))
+    assert_equal("cccfffiiilllooorrruuuxxxaa", encode_vigenere("abcdefghijklmnopqrstuvwxyz", "CBA"))
+    assert_equal("/* KTCJWI Ugbmwfi */",       encode_vigenere("/* SECRET Comment */", "PASS"))
+    assert_equal("t fyn qp soybs, uyfimqz rgk eolywc",
+                 encode_vigenere("a bit of bacon, lettuce and tomato", "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"))
   end
 
 #  def test_decode_vigenere

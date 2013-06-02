@@ -10,6 +10,7 @@ def check_sum(s)
   sum % 26 == 0
 end
 
+# $password の先頭4文字
 $plain_text = decode_vigenere($text, (the $password))
 raise "checksum error" unless check_sum($plain_text[1..-1])
 

@@ -16,16 +16,17 @@ class TestCase_Vigenere < Test::Unit::TestCase
                  encode_vigenere("a bit of bacon, lettuce and tomato", "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"))
   end
 
-#  def test_decode_vigenere
-#    assert_equal("aaaAAA",                     decode_vigenere("abcABC", "ABC"))
-#    assert_equal("abcdefghijklmnopqrstuvwxyz", decode_vigenere("abcdefghijklmnopqrstuvwxyz", "A"))
-#    assert_equal("abcdefghijklmnopqrstuvwxyz", decode_vigenere("abcdefghijklmnopqrstuvwxyz", "AAA"))
-#    assert_equal("abcdefghijklmnopqrstuvwxyz", decode_vigenere("bcdefghijklmnopqrstuvwxyza", "BBB"))
-#    assert_equal("abcdefghijklmnopqrstuvwxyz", decode_vigenere("zabcdefghijklmnopqrstuvwxy", "ZZZ"))
-#    assert_equal("abcdefghijklmnopqrstuvwxyz", decode_vigenere("cccfffiiilllooorrruuuxxxaa", "CBA"))
-#    assert_equal("/* SECRET Comment */",       decode_vigenere("/* KTCJWI Ugbmwfi */", "PASS"))
-#    assert_equal("a bit of bacon, lettuce and tomato",
-#                 decode_vigenere("t fyn qp soybs, uyfimqz rgk eolywc", "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"))
-#  end
+  def test_decode_vigenere
+    assert_equal("aaa",                     decode_vigenere("abc", "ABC"))
+    assert_equal("aaaAAA",                     decode_vigenere("abcABC", "ABC"))
+    assert_equal("abcdefghijklmnopqrstuvwxyz", decode_vigenere("abcdefghijklmnopqrstuvwxyz", "A"))
+    assert_equal("abcdefghijklmnopqrstuvwxyz", decode_vigenere("abcdefghijklmnopqrstuvwxyz", "AAA"))
+    assert_equal("abcdefghijklmnopqrstuvwxyz", decode_vigenere("bcdefghijklmnopqrstuvwxyza", "BBB"))
+    assert_equal("abcdefghijklmnopqrstuvwxyz", decode_vigenere("zabcdefghijklmnopqrstuvwxy", "ZZZ"))
+    assert_equal("abcdefghijklmnopqrstuvwxyz", decode_vigenere("cccfffiiilllooorrruuuxxxaa", "CBA"))
+    assert_equal("/* SECRET Comment */",       decode_vigenere("/* KTCJWI Ugbmwfi */", "PASS"))
+    assert_equal("a bit of bacon, lettuce and tomato",
+                 decode_vigenere("t fyn qp soybs, uyfimqz rgk eolywc", "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"))
+  end
 
 end

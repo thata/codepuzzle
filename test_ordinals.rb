@@ -17,4 +17,5 @@ class TestCase_Ordinals < Test::Unit::TestCase
                    })
     }
   end
+
 end

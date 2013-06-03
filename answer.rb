@@ -4,7 +4,7 @@ require './ordinals.rb'
 answer = $grid.split('').values_at(*$ordinals[0..21]).each_slice(2).
   map do |x,y|
     # ここは見えない
-    [x, y] 
+    $grid.cell(x, y)
   end.join
 puts answer
 

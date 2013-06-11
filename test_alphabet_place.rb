@@ -33,6 +33,12 @@ SZPZBZZNZZZGZUZZKCZZZARIZ
 GRID25
   end
 
+  def test_block_cells
+    # doing
+    assert_equal(Set['A','Z','W','D','F','M','R','I','Q','B','Y','G','X','S'], AlphabetPlace::Solver.new(nil).__send__(:col_cells, @grid, 1))
+    assert_equal(Set['E','R','Z','I','W','G','B','Y','H','T','X','P','K'], AlphabetPlace::Solver.new(nil).__send__(:col_cells, @grid, 25))
+  end
+
   def test_col_cells
     assert_equal(Set['A','Z','W','D','F','M','R','I','Q','B','Y','G','X','S'], AlphabetPlace::Solver.new(nil).__send__(:col_cells, @grid, 1))
     assert_equal(Set['E','R','Z','I','W','G','B','Y','H','T','X','P','K'], AlphabetPlace::Solver.new(nil).__send__(:col_cells, @grid, 25))
@@ -71,7 +77,7 @@ XMZWZZZFZKZZZZZZZZZZDZZZZ
 ZEZIZZZZRDZHZZZOZZZAGJBZK
 SZPZBZZNZZZGZUZZKCZZZARIZ
 GRID25
-#    assert_equal(Set[9],                solver.list_candidates(1, 1))
+    assert_equal(Set[9],                solver.list_candidates(1, 1))
 #    assert_equal(Set[9],                solver.list_candidates(7, 3))
 #    assert_equal(Set[9],                solver.list_candidates(9, 9))
 #    assert_equal(Set[2, 4, 5, 6, 7, 9], solver.list_candidates(1, 6))

@@ -1,26 +1,82 @@
 require 'test/unit'
 require './alphabet_place.rb'
+require './alphabet_place_utility.rb'
 
 class TestCase_AlphabetPlaceSolver < Test::Unit::TestCase
+  def setup
+    @grid = <<GRID25.delete("\n")
+AZZPZZTZZZZZZWFZZZOZCZZZE
+ZZZXFQBZZZASJZZUYZZLTZZZR
+ZJDLUPOCZZKZNZZQHZZZSZZZZ
+ZKZZZZZZZZEZBHZTZGZWMZJZZ
+ZWZZZZFZZUTYPZZVEMZZZZZQI
+ZZZZTZZKVZZZZZZBFOZEZZZXZ
+ZXYVMBSZZZUDZZZZZZZZZZZZZ
+WZZZZFQZXZZZLZZNRZZYZZZZZ
+ZZZSPECZATMKYOZZZZZZJZZVW
+ZIZZAMZZZZZZZZZZCVZZZZEZZ
+DZNAZZZZZSZUZZZZZZPZVIZHG
+ZZZZZLZZZAQPZZVZZZZRZZCZZ
+ZZKZZZGBOZZZZZZZMNHULZZZZ
+FZUZHZZTQYJZZCAIVZZZZDZKB
+ZQZZZZZZHPOZZRZWGTCSZMUNY
+MATZZJPZLZHZZZZZQWZZZNZRZ
+RZZJSZZYZCZQZEZZZUZHZZZZZ
+IFCZZTZEZZZZKMRPZZZZZZZOH
+QZZDZVZINZBZXSOYZAEZZZGZT
+BLEOVZZSZZZZZYUJTZKZZZWPX
+YDFKCWZAZIZZZZZMZZZGNEZUP
+GZZZQZUZZZNZZZZZZLZZZZYZZ
+XMZWZZZFZKZZZZZZZZZZDZZZZ
+ZEZIZZZZRDZHZZZOZZZAGJBZK
+SZPZBZZNZZZGZUZZKCZZZARIZ
+GRID25
+  end
+
+  def test_col_cells
+    assert_equal(Set['A','Z','W','D','F','M','R','I','Q','B','Y','G','X','S'], AlphabetPlace::Solver.new(nil).__send__(:col_cells, @grid, 1))
+    assert_equal(Set['E','R','Z','I','W','G','B','Y','H','T','X','P','K'], AlphabetPlace::Solver.new(nil).__send__(:col_cells, @grid, 25))
+  end
+
+  def test_row_cells
+    assert_equal(Set['A','P','Z','T','W','F','O','C','E'], AlphabetPlace::Solver.new(nil).__send__(:row_cells, @grid, 1))
+    assert_equal(Set['S','P','Z','B','N','G','U','K','C','A','R','I'], AlphabetPlace::Solver.new(nil).__send__(:row_cells, @grid, 25))
+  end
 
   def test_list_candidates
-    solver = AlphabetPlace::Solver.new(<<GRID.delete("\n"))
-123456780
-456700000
-780000000
-200060000
-500000000
-800031000
-300000000
-600900000
-000000000
-GRID
-    assert_equal(Set[9],                solver.list_candidates(1, 1))
-    assert_equal(Set[9],                solver.list_candidates(7, 3))
-    assert_equal(Set[9],                solver.list_candidates(9, 9))
-    assert_equal(Set[2, 4, 5, 6, 7, 9], solver.list_candidates(1, 6))
-    assert_equal(Set[5, 8],             solver.list_candidates(6, 4))
-    assert_equal(Set[2, 4, 7, 8, 9],    solver.list_candidates(5, 5))
+    solver = AlphabetPlace::Solver.new(<<GRID25.delete("\n"))
+AZZPZZTZZZZZZWFZZZOZCZZZE
+ZZZXFQBZZZASJZZUYZZLTZZZR
+ZJDLUPOCZZKZNZZQHZZZSZZZZ
+ZKZZZZZZZZEZBHZTZGZWMZJZZ
+ZWZZZZFZZUTYPZZVEMZZZZZQI
+ZZZZTZZKVZZZZZZBFOZEZZZXZ
+ZXYVMBSZZZUDZZZZZZZZZZZZZ
+WZZZZFQZXZZZLZZNRZZYZZZZZ
+ZZZSPECZATMKYOZZZZZZJZZVW
+ZIZZAMZZZZZZZZZZCVZZZZEZZ
+DZNAZZZZZSZUZZZZZZPZVIZHG
+ZZZZZLZZZAQPZZVZZZZRZZCZZ
+ZZKZZZGBOZZZZZZZMNHULZZZZ
+FZUZHZZTQYJZZCAIVZZZZDZKB
+ZQZZZZZZHPOZZRZWGTCSZMUNY
+MATZZJPZLZHZZZZZQWZZZNZRZ
+RZZJSZZYZCZQZEZZZUZHZZZZZ
+IFCZZTZEZZZZKMRPZZZZZZZOH
+QZZDZVZINZBZXSOYZAEZZZGZT
+BLEOVZZSZZZZZYUJTZKZZZWPX
+YDFKCWZAZIZZZZZMZZZGNEZUP
+GZZZQZUZZZNZZZZZZLZZZZYZZ
+XMZWZZZFZKZZZZZZZZZZDZZZZ
+ZEZIZZZZRDZHZZZOZZZAGJBZK
+SZPZBZZNZZZGZUZZKCZZZARIZ
+GRID25
+#    assert_equal(Set[9],                solver.list_candidates(1, 1))
+#    assert_equal(Set[9],                solver.list_candidates(7, 3))
+#    assert_equal(Set[9],                solver.list_candidates(9, 9))
+#    assert_equal(Set[2, 4, 5, 6, 7, 9], solver.list_candidates(1, 6))
+#    assert_equal(Set[5, 8],             solver.list_candidates(6, 4))
+#    assert_equal(Set[2, 4, 7, 8, 9],    solver.list_candidates(5, 5))
   end
 
 
@@ -151,4 +207,49 @@ GRID
   end
 =end
 
+end
+
+class TestCase_AlphabetPlaceUtility < Test::Unit::TestCase
+  def setup
+    @grid = <<GRID25.delete("\n")
+AZZPZZTZZZZZZWFZZZOZCZZZE
+ZZZXFQBZZZASJZZUYZZLTZZZR
+ZJDLUPOCZZKZNZZQHZZZSZZZZ
+ZKZZZZZZZZEZBHZTZGZWMZJZZ
+ZWZZZZFZZUTYPZZVEMZZZZZQI
+ZZZZTZZKVZZZZZZBFOZEZZZXZ
+ZXYVMBSZZZUDZZZZZZZZZZZZZ
+WZZZZFQZXZZZLZZNRZZYZZZZZ
+ZZZSPECZATMKYOZZZZZZJZZVW
+ZIZZAMZZZZZZZZZZCVZZZZEZZ
+DZNAZZZZZSZUZZZZZZPZVIZHG
+ZZZZZLZZZAQPZZVZZZZRZZCZZ
+ZZKZZZGBOZZZZZZZMNHULZZZZ
+FZUZHZZTQYJZZCAIVZZZZDZKB
+ZQZZZZZZHPOZZRZWGTCSZMUNY
+MATZZJPZLZHZZZZZQWZZZNZRZ
+RZZJSZZYZCZQZEZZZUZHZZZZZ
+IFCZZTZEZZZZKMRPZZZZZZZOH
+QZZDZVZINZBZXSOYZAEZZZGZT
+BLEOVZZSZZZZZYUJTZKZZZWPX
+YDFKCWZAZIZZZZZMZZZGNEZUP
+GZZZQZUZZZNZZZZZZLZZZZYZZ
+XMZWZZZFZKZZZZZZZZZZDZZZZ
+ZEZIZZZZRDZHZZZOZZZAGJBZK
+SZPZBZZNZZZGZUZZKCZZZARIZ
+GRID25
+  end
+
+  def test_pos2index
+    assert_equal(0, @grid.pos2index(1, 1))
+    assert_equal(1, @grid.pos2index(2, 1))
+    assert_equal(624, @grid.pos2index(25, 25))
+  end
+
+  def test_index2pos
+    assert_equal([1, 1], @grid.index2pos(0))
+    assert_equal([2, 1], @grid.index2pos(1))
+    assert_equal([1, 2], @grid.index2pos(25))
+    assert_equal([25, 25], @grid.index2pos(624))
+  end
 end

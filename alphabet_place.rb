@@ -58,25 +58,22 @@ module AlphabetPlace
 
     private 
 
-#    # 横一列
-#    def row_cells(grid, y)
-#      grid.to_grid.split[y - 1].split(//).map do |n|
-#        n.to_i
-#      end.each_with_object(Set[]) do |n, s|
-#        s << n
-#      end
-#    end
-#
-#    # 縦一列
-#    def col_cells(grid, x)
-#      grid.to_grid.split.map {|line|
-#        line.reverse[x - 1]
-#      }.map {|s|
-#        s.to_i
-#      }.each_with_object(Set[]) { |n, s|
-#        s << n
-#      }
-#    end
+    # 横一列
+    def row_cells(grid, y)
+      grid.to_grid.split[y - 1].split(//).
+        each_with_object(Set[]) do |n, s|
+        s << n
+      end
+    end
+
+    # 縦一列
+    def col_cells(grid, x)
+      grid.to_grid.split.map {|line|
+        line[x - 1]
+      }.each_with_object(Set[]) { |n, s|
+        s << n
+      }
+    end
 #    
 #    def block_cells(grid, x, y)
 #      xs = friend_of(x)

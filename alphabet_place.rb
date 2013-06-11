@@ -78,21 +78,25 @@ module AlphabetPlace
     def block_cells(grid, x, y)
       xs = friend_of(x)
       ys = friend_of(y)
-      selected_rows = ys.map {|n| @grid.to_grid.split[n - 1] }
-      selected_cols = selected_rows.map{|s|s.reverse}.map{|l|l[xs[0] - 1] + l[xs[1] - 1] + l[xs[2] - 1]}
-      result = selected_cols.map{|line| line.split(//)}.flatten.uniq.map{|s| s.to_i}.each_with_object(Set[]) {|n, s| s << n }
+      selected_rows = ys.map {|n| grid.to_grid.split[n - 1] }
+      selected_cols = selected_rows.map{|l|l[xs[0] - 1] + l[xs[1] - 1] + l[xs[2] - 1] + l[xs[3] - 1] + l[xs[4] - 1]}
+      result = selected_cols.map{|line| line.split(//)}.flatten.uniq.each_with_object(Set[]) {|n, s| s << n }
       result
     end
-#
-#    def friend_of(n)
-#      case n
-#      when 1..3
-#        [1, 2, 3]
-#      when 4..6
-#        [4, 5, 6]
-#      when 7..9
-#        [7, 8, 9]
-#      end
-#    end
+
+    def friend_of(n)
+      case n
+      when 1..5
+        (1..5).to_a
+      when 6..10
+        (6..10).to_a
+      when 11..15
+        (11..15).to_a
+      when 16..20
+        (16..20).to_a
+      when 21..25
+        (21..25).to_a
+      end
+    end
   end
 end

@@ -1,5 +1,7 @@
 # final_puzzle.rb
 
+require './alphabet_place.rb'
+
 $grid = <<GRID25.delete("\n")
 AZZPZZTZZZZZZWFZZZOZCZZZE
 ZZZXFQBZZZASJZZUYZZLTZZZR
@@ -32,3 +34,5 @@ $partial_grid = [
                  "ILOVERUBY",
                  "R\nU\nB\nY\nI\nS\nT"
                 ]
+
+puts AlphabetPlace::Solver.new($grid).solve.to_grid

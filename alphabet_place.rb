@@ -1,5 +1,5 @@
 require 'set'
-require './utility.rb'
+require './alphabet_place_utility.rb'
 
 module AlphabetPlace
   class Solver
@@ -8,52 +8,84 @@ module AlphabetPlace
     end
 
     def solve
-#      solve_with_backtracking
-      @grid
+      solve_with_backtracking
+#      solve_simple
     end
 
     def solve_simple
-#      for x in 2..9
-#        for y in 1..9
-#          next if @grid.cell(x, y).to_i > 0
-#          candidates = list_candidates(x, y)
-#          if candidates.empty?
-#            # do nothing
-#          elsif candidates.size == 1
-#            n = candidates.first
-#            @grid.set_cell(x, y, n)
-#          else
-#            # do nothing
-#          end
-#        end
-#      end
-#      @grid
+      for x in 1..25
+        for y in 1..25
+          next if @grid.cell(x, y) != 'Z'
+          candidates = list_candidates(x, y)
+          if candidates.empty?
+            # do nothing
+          elsif candidates.size == 1
+            n = candidates.first
+            @grid.set_cell(x, y, n)
+          else
+            # do nothing
+          end
+        end
+      end
+      @grid
     end
 
     def solve_with_backtracking
-#      solve_simple()                  # まず、答が確定するところは解き進めます
-#
-#      next_zero = @grid.index("0")
-#      return true if next_zero.nil?   # もう0が残っていない＝解答発見
-#
-#      # 0 のマスに対して、候補を一つずつ仮置きしてみます
-#      x, y = @grid.index2pos(next_zero)
-#      list_candidates(x, y).each{|k|
-#        saved_grid = @grid.clone      # 盤面を保存しておく
-#        @grid.set_cell(x, y, k)       # 数字を仮置きする
-#
-#        if solve_with_backtracking()
-#          return true                 # 答が見つかったら盤面を @grid に残したままで終了
-#        end
-#
-#        @grid = saved_grid            # 汚れた盤面を保存した状態に戻す
-#      }
-#      return false                    # 答が見つからなかった
+      solve_simple()                  # まず、答が確定するところは解き進めます
+
+      next_z = @grid.index("Z")
+
+      #debug
+      puts next_z
+      puts @grid
+
+      return true if next_z.nil?   # もう0が残っていない＝解答発見
+
+      # Z のマスに対して、候補を一つずつ仮置きしてみます
+      x, y = @grid.index2pos(next_z)
+      list_candidates(x, y).each{|k|
+        saved_grid = @grid.clone      # 盤面を保存しておく
+        @grid.set_cell(x, y, k)       # 数字を仮置きする
+
+        if solve_with_backtracking()
+          return true                 # 答が見つかったら盤面を @grid に残したままで終了
+        end
+
+        @grid = saved_grid            # 汚れた盤面を保存した状態に戻す
+      }
+      return false                    # 答が見つからなかった
     end
 
     def list_candidates(x, y)
       candidates = Set.new('A'..'Y')
       candidates - row_cells(@grid, y) - col_cells(@grid, x) - block_cells(@grid, x, y)
+    end
+
+    # doing
+    def sample
+      # for x in 1..25
+      #   y = 1
+      #   next if @grid.cell(x, y) != 'Z'
+      #   candidates = list_candidates(x, y)
+      #   if candidates.empty?
+      #     # do nothing
+      #   else
+      #     @grid.set_cell(x, y, candidates.first)
+      #   end
+      # end
+      for x in 1..25
+        for y in 1..25
+          next if @grid.cell(x, y) != 'Z'
+          candidates = list_candidates(x, y)
+          if candidates.empty?
+            # do nothing
+          else
+            n = candidates.first
+            @grid.set_cell(x, y, n)
+          end
+        end
+      end
+      @grid
     end
 
     private 
@@ -79,7 +111,13 @@ module AlphabetPlace
       xs = friend_of(x)
       ys = friend_of(y)
       selected_rows = ys.map {|n| grid.to_grid.split[n - 1] }
-      selected_cols = selected_rows.map{|l|l[xs[0] - 1] + l[xs[1] - 1] + l[xs[2] - 1] + l[xs[3] - 1] + l[xs[4] - 1]}
+      selected_cols = selected_rows.map do |l|
+        l[xs[0] - 1] + 
+          l[xs[1] - 1] + 
+          l[xs[2] - 1] + 
+          l[xs[3] - 1] + 
+          l[xs[4] - 1]
+      end
       result = selected_cols.map{|line| line.split(//)}.flatten.uniq.each_with_object(Set[]) {|n, s| s << n }
       result
     end
@@ -99,4 +137,35 @@ module AlphabetPlace
       end
     end
   end
+end
+
+if __FILE__ == $0
+  grid = <<GRID.delete("\n")
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+ZZZZZZZZZZZZZZZZZZZZZZZZZ
+GRID
+  puts AlphabetPlace::Solver.new(grid).solve.to_grid
 end

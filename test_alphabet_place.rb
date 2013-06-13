@@ -4,6 +4,7 @@ require './alphabet_place_utility.rb'
 
 class TestCase_AlphabetPlaceSolver < Test::Unit::TestCase
   def setup
+    String.grid_size = 25
     @grid = <<GRID25.delete("\n")
 AZZPZZTZZZZZZWFZZZOZCZZZE
 ZZZXFQBZZZASJZZUYZZLTZZZR
@@ -132,6 +133,18 @@ GRID25
     assert_equal(Set['X'], solver.list_candidates(25, 25))
   end
 
+
+  # doing
+  def test_apply_3
+    String.grid_size = 3
+    solver = AlphabetPlace::Solver.new(<<GRID.delete("\n"))
+AZC
+DEF
+GZZ
+GRID
+    assert_equal(["ABCDEFGHZ"], solver.apply('AB'))
+    assert_equal(["AZCDEFGHI"], solver.apply('HI'))
+  end
 
   def test_solve_0_super_easy
     String.grid_size = 5

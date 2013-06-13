@@ -37,6 +37,8 @@ module AlphabetPlace
 
       return true if next_z.nil?   # もう0が残っていない＝解答発見
 
+      ## 以下を RUBYIST, ILOVERUBY をapplyした結果の各候補に対してぐるぐるまわすと良さそうな...
+
       # Z のマスに対して、候補を一つずつ仮置きしてみます
       x, y = @grid.index2pos(next_z)
       list_candidates(x, y).each{|k|
@@ -55,6 +57,10 @@ module AlphabetPlace
     def list_candidates(x, y)
       candidates = Set.new('A'..'Y')
       candidates - row_cells(@grid, y) - col_cells(@grid, x) - block_cells(@grid, x, y)
+    end
+
+    def apply(pattern)
+      [@grid]
     end
 
     private 
@@ -81,6 +87,7 @@ module AlphabetPlace
       ys = friend_of(y)
       selected_rows = ys.map {|n| grid.to_grid.split[n - 1] }
       selected_cols = selected_rows.map do |l|
+        # XXX String.grid_size 未対応
         l[xs[0] - 1] + 
           l[xs[1] - 1] + 
           l[xs[2] - 1] + 

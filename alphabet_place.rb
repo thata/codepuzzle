@@ -8,7 +8,8 @@ module AlphabetPlace
     end
 
     def solve
-      solve_with_backtracking
+      # solve_with_backtracking
+      solve_with_aplying_partial_and_backtracking
       @grid
     end
 
@@ -30,14 +31,31 @@ module AlphabetPlace
       @grid
     end
 
+    def solve_with_aplying_partial_and_backtracking
+      ## 以下を RUBYIST, ILOVERUBY をapplyした結果の各候補に対してぐるぐるまわすと良さそうな...
+      partialed_grids = list_candidate_grid_with_horizonal_partial($partial_grid, @grid)
+      partialed_grids.each do |grid|
+        saved_grid = @grid.clone
+        @grid = grid
+        if solve_with_backtracking
+          return true
+        end
+        @grid = saved_grid
+      end
+      return false
+    end
+
+    def list_candidate_grid_with_horizonal_partial(hp, grid)
+      applier = AlphabetPlace::PartialApplier.new(grid)
+      applier.apply_horizonal_partial(hp)
+    end
+
     def solve_with_backtracking
       solve_simple()                  # まず、答が確定するところは解き進めます
 
       next_z = @grid.index("Z")
 
       return true if next_z.nil?   # もう0が残っていない＝解答発見
-
-      ## 以下を RUBYIST, ILOVERUBY をapplyした結果の各候補に対してぐるぐるまわすと良さそうな...
 
       # Z のマスに対して、候補を一つずつ仮置きしてみます
       x, y = @grid.index2pos(next_z)
@@ -112,5 +130,39 @@ module AlphabetPlace
         (21..25).to_a
       end
     end
+  end
+
+  class PartialApplier
+    def initialize(grid)
+      @grid = grid
+    end
+
+    def apply_horizonal_partial(partial)
+      [@grid.clone]
+    end
+
+    def hoge
+    end
+  end
+end
+
+def apply(partial, grid)
+  regexp = Regexp.new(partial.split(//).map {|c| ("[#{c}Z]") }.join)
+  result = []
+  for i in 1..String.grid_size
+    if grid =~ regexp
+      result << grid.sub(regexp, partial)
+    end
+  end
+  if result.empty?
+    result << grid
+  end
+  result
+end
+
+def row_cells(grid, y)
+  grid.to_grid.split[y - 1].split(//).
+    each_with_object(Set[]) do |n, s|
+    s << n
   end
 end

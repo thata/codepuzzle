@@ -133,17 +133,33 @@ GRID25
     assert_equal(Set['X'], solver.list_candidates(25, 25))
   end
 
-
-  # doing
-  def test_apply_3
-    String.grid_size = 3
-    solver = AlphabetPlace::Solver.new(<<GRID.delete("\n"))
-AZC
-DEF
-GZZ
+  def test_candicate_grid_with_horizonal_partial
+    String.grid_size = 5
+    grid = <<GRID.delete("\n")
+AZCDE
+FGHIJ
+KLMNO
+PQRST
+UVWXY
 GRID
-    assert_equal(["ABCDEFGHZ"], solver.apply('AB'))
-    assert_equal(["AZCDEFGHI"], solver.apply('HI'))
+    # マッチしない
+    assert_equal(["AZCDEFGHIJKLMNOPQRSTUVWXY"], apply('ZZ', grid))
+    # 完全マッチ
+    assert_equal(["AZCDEFGHIJKLMNOPQRSTUVWXY"], apply('CD', grid))
+    # 部分マッチ
+    assert_equal(["ABCDEFGHIJKLMNOPQRSTUVWXY"], apply('AB', grid))
+
+    # 改行はまたがない
+    grid = <<GRID.delete("\n")
+ABCDZ
+FGHIJ
+ZLMNO
+ZQRST
+UVWXY
+GRID
+    assert_equal(["ABCDEFGHIJZLMNOZQRSTUVWXY"], apply('DE', grid))
+    assert_equal(["ABCDEFGHIJZLMNOZQRSTUVWXY"], apply('JK', grid))
+    assert_equal(["ABCDEFGHIJZLMNOPQRSTUVWXY"], apply('PQ', grid))
   end
 
   def test_solve_0_super_easy
@@ -312,5 +328,10 @@ GRID25
     assert_equal([2, 1], @grid.index2pos(1))
     assert_equal([1, 2], @grid.index2pos(25))
     assert_equal([25, 25], @grid.index2pos(624))
+  end
+end
+
+class TestCase_AlphabetPlaceApply < Test::Unit::TestCase
+  def test_hello
   end
 end

@@ -30,7 +30,6 @@ module AlphabetPlace
       @grid
     end
 
-
     # 候補がもっとも少ない Z を返す
     def super_next_z
       # next_z = (1..5).map {|x| (16..20).map {|y| [x, y] }}.flatten(1).map {|x, y| [(x - 1) + ((y - 1) * String.grid_size), list_candidates(x, y).size] }.reject {|xy, n| n == 0 }.sort {|x, y| x[1] <=> y[1] }.first
@@ -44,10 +43,24 @@ module AlphabetPlace
       end
     end
 
+    def hyper_next_z
+      blocks = sort_block_by_n_of_candidate((1..25).to_a)
+      blocks.each do |block|
+        xrange = block_xrange(block)
+        yrange = block_yrange(block)
+        next_z = xrange.map {|x| yrange.map {|y| [x, y] }}.flatten(1).map {|x, y| [(x - 1) + ((y - 1) * String.grid_size), list_candidates(x, y).size] }.reject {|xy, n| n == 0 }.sort {|x, y| x[1] <=> y[1] }.first
+        if next_z
+          return next_z[0]
+        end
+      end
+      @grid.index("Z")
+    end
+
     def solve_with_backtracking
       solve_simple()                  # まず、答が確定するところは解き進めます
 
-      next_z = super_next_z
+      next_z = hyper_next_z
+      # next_z = super_next_z
 
       return true if next_z.nil?   # もう0が残っていない＝解答発見
 
@@ -74,6 +87,21 @@ module AlphabetPlace
       candidates = Set.new('A'..'Y')
       return Set[] if @grid.cell(x, y) != 'Z'
       candidates - row_cells(@grid, y) - col_cells(@grid, x) - block_cells(@grid, x, y)
+    end
+
+    def n_of_candidate_of_block(n)
+      sum = 0
+      for x in block_xrange(n)
+        for y in block_yrange(n)
+          sum = sum + list_candidates(x, y).size
+        end
+      end
+      sum
+    end
+
+    def sort_block_by_n_of_candidate(blocks)
+      # 候補数が少ない順に並べる
+      blocks.map {|block| [block, n_of_candidate_of_block(block)] }.sort {|a, b| a[1] <=> b[1] }.map {|n, count| n }
     end
 
     def block_xrange(n)

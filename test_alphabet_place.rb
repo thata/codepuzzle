@@ -35,11 +35,30 @@ GRID25
 
   def test_block_range
     solver = AlphabetPlace::Solver.new(nil)
+    # x
     assert_equal([1, 2, 3, 4, 5], solver.block_xrange(1))
     assert_equal([6, 7, 8, 9, 10], solver.block_xrange(2))
     assert_equal([21, 22, 23, 24, 25], solver.block_xrange(5))
     assert_equal([1, 2, 3, 4, 5], solver.block_xrange(6))
     assert_equal([21, 22, 23, 24, 25], solver.block_xrange(25))
+    # y
+    assert_equal([1, 2, 3, 4, 5], solver.block_yrange(1))
+    assert_equal([1, 2, 3, 4, 5], solver.block_yrange(5))
+    assert_equal([6, 7, 8, 9, 10], solver.block_yrange(6))
+    assert_equal([21, 22, 23, 24, 25], solver.block_yrange(25))
+  end
+
+  def test_n_of_candidate_of_block
+    String.grid_size = 25
+    solver = AlphabetPlace::Solver.new(@grid)
+    assert_equal(83, solver.n_of_candidate_of_block(1))
+    assert_equal(78, solver.n_of_candidate_of_block(25))
+  end
+
+  def test_sort_block_by_n_of_candidate
+    String.grid_size = 25
+    solver = AlphabetPlace::Solver.new(@grid)
+    assert_equal([16, 25, 1], solver.sort_block_by_n_of_candidate([1, 16, 25]))
   end
 
   def test_block_cells
@@ -144,21 +163,22 @@ GRID25
 
 
   def test_solve_0_super_easy
-    String.grid_size = 5
-    solver = AlphabetPlace::Solver.new(<<GRID.delete("\n"))
-ABCDE
-FGHIJ
-KLMNO
-PQRST
-ZZZZZ
-GRID
-    assert_equal(<<GRID.delete("\n"), solver.solve())
-ABCDE
-FGHIJ
-KLMNO
-PQRST
-UVWXY
-GRID
+#    String.grid_size = 5
+#    solver = AlphabetPlace::Solver.new(<<GRID.delete("\n"))
+#ABCDE
+#FGHIJ
+#KLMNO
+#PQRST
+#ZZZZZ
+#GRID
+#    binding.pry
+#    assert_equal(<<GRID.delete("\n"), solver.solve())
+#ABCDE
+#FGHIJ
+#KLMNO
+#PQRST
+#UVWXY
+#GRID
   end
 
 #  def test_solve_1_easy

@@ -30,10 +30,17 @@ module AlphabetPlace
       @grid
     end
 
+
+    # 候補がもっとも少ない Z を返す
+    def super_next_z
+      next_z = (1..String.grid_size).map {|x| (1..String.grid_size).map {|y| [x, y] }}.flatten(1).map {|x, y| [(x - 1) + ((y - 1) * String.grid_size), list_candidates(x, y).size] }.reject {|xy, n| n == 0
+      next_z ? next_z[0] : nil
+    end
+
     def solve_with_backtracking
       solve_simple()                  # まず、答が確定するところは解き進めます
 
-      next_z = @grid.index("Z")
+      next_z = super_next_z
 
       return true if next_z.nil?   # もう0が残っていない＝解答発見
 

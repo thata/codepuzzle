@@ -33,8 +33,13 @@ module AlphabetPlace
 
     # 候補がもっとも少ない Z を返す
     def super_next_z
-      next_z = (1..String.grid_size).map {|x| (1..String.grid_size).map {|y| [x, y] }}.flatten(1).map {|x, y| [(x - 1) + ((y - 1) * String.grid_size), list_candidates(x, y).size] }.reject {|xy, n| n == 0
-      next_z ? next_z[0] : nil
+      next_z = (1..String.grid_size).map {|x| (1..String.grid_size).map {|y| [x, y] }}.flatten(1).map {|x, y| [(x - 1) + ((y - 1) * String.grid_size), list_candidates(x, y).size] }.reject {|xy, n| n == 0 }.sort {|x, y| x[1] <=> y[1] }.first
+      if next_z
+        next_z[0]
+      else
+        # 候補が無くなったけど、Zは残ってる？
+        @grid.index("Z")
+      end
     end
 
     def solve_with_backtracking
@@ -47,6 +52,10 @@ module AlphabetPlace
       # Z のマスに対して、候補を一つずつ仮置きしてみます
       x, y = @grid.index2pos(next_z)
       list_candidates(x, y).each{|k|
+        # debug
+        puts "---"
+        puts @grid.to_grid
+
         saved_grid = @grid.clone      # 盤面を保存しておく
         @grid.set_cell(x, y, k)       # 数字を仮置きする
 

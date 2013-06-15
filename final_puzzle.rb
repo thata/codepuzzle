@@ -34,5 +34,6 @@ $partial_grid = [
                  "ILOVERUBY",
                  "R\nU\nB\nY\nI\nS\nT"
                 ]
-
-puts AlphabetPlace::Solver.new($grid).solve.to_grid
+answer = AlphabetPlace::Solver.new($grid).solve
+puts "*** answer ***"
+puts answer.to_grid

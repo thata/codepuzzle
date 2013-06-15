@@ -33,12 +33,14 @@ module AlphabetPlace
 
     # 候補がもっとも少ない Z を返す
     def super_next_z
-      next_z = (1..String.grid_size).map {|x| (1..String.grid_size).map {|y| [x, y] }}.flatten(1).map {|x, y| [(x - 1) + ((y - 1) * String.grid_size), list_candidates(x, y).size] }.reject {|xy, n| n == 0 }.sort {|x, y| x[1] <=> y[1] }.first
+      next_z = (1..5).map {|x| (16..20).map {|y| [x, y] }}.flatten(1).map {|x, y| [(x - 1) + ((y - 1) * String.grid_size), list_candidates(x, y).size] }.reject {|xy, n| n == 0 }.sort {|x, y| x[1] <=> y[1] }.first
+      # next_z = (1..String.grid_size).map {|x| (1..String.grid_size).map {|y| [x, y] }}.flatten(1).map {|x, y| [(x - 1) + ((y - 1) * String.grid_size), list_candidates(x, y).size] }.reject {|xy, n| n == 0 }.sort {|x, y| x[1] <=> y[1] }.first
       if next_z
         next_z[0]
       else
         # 候補が無くなったけど、Zは残ってる？
-        @grid.index("Z")
+        # @grid.index("Z")
+        nil
       end
     end
 
@@ -93,6 +95,20 @@ module AlphabetPlace
       }
     end
     
+    def block(grid, x, y)
+      xs = friend_of(x)
+      ys = friend_of(y)
+      selected_rows = ys.map {|n| grid.to_grid.split[n - 1] }
+      selected_cols = selected_rows.map do |l|
+        l[xs[0] - 1] + 
+          l[xs[1] - 1] + 
+          l[xs[2] - 1] + 
+          l[xs[3] - 1] + 
+          l[xs[4] - 1]
+      end
+      selected_cols
+    end
+
     def block_cells(grid, x, y)
       xs = friend_of(x)
       ys = friend_of(y)

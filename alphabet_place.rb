@@ -54,6 +54,7 @@ module AlphabetPlace
 
     def list_candidates(x, y)
       candidates = Set.new('A'..'Y')
+      return Set[] if @grid.cell(x, y) != 'Z'
       candidates - row_cells(@grid, y) - col_cells(@grid, x) - block_cells(@grid, x, y)
     end
 

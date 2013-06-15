@@ -126,6 +126,7 @@ ZABCDEFGHIJKLMNOPQRSTUVWZ
 GRID25
     assert_equal(Set['A'], solver.list_candidates(1, 1))
     assert_equal(Set[], solver.list_candidates(2, 1))
+    assert_equal(Set[], solver.list_candidates(3, 1))
     assert_equal(Set['Y'], solver.list_candidates(2, 2))
     assert_equal(Set['T'], solver.list_candidates(25, 5))
     assert_equal(Set['X', 'Y'], solver.list_candidates(1, 25))

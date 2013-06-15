@@ -33,14 +33,14 @@ module AlphabetPlace
 
     # 候補がもっとも少ない Z を返す
     def super_next_z
-      next_z = (1..5).map {|x| (16..20).map {|y| [x, y] }}.flatten(1).map {|x, y| [(x - 1) + ((y - 1) * String.grid_size), list_candidates(x, y).size] }.reject {|xy, n| n == 0 }.sort {|x, y| x[1] <=> y[1] }.first
-      # next_z = (1..String.grid_size).map {|x| (1..String.grid_size).map {|y| [x, y] }}.flatten(1).map {|x, y| [(x - 1) + ((y - 1) * String.grid_size), list_candidates(x, y).size] }.reject {|xy, n| n == 0 }.sort {|x, y| x[1] <=> y[1] }.first
+      # next_z = (1..5).map {|x| (16..20).map {|y| [x, y] }}.flatten(1).map {|x, y| [(x - 1) + ((y - 1) * String.grid_size), list_candidates(x, y).size] }.reject {|xy, n| n == 0 }.sort {|x, y| x[1] <=> y[1] }.first
+      next_z = (1..String.grid_size).map {|x| (1..String.grid_size).map {|y| [x, y] }}.flatten(1).map {|x, y| [(x - 1) + ((y - 1) * String.grid_size), list_candidates(x, y).size] }.reject {|xy, n| n == 0 }.sort {|x, y| x[1] <=> y[1] }.first
       if next_z
         next_z[0]
       else
         # 候補が無くなったけど、Zは残ってる？
-        # @grid.index("Z")
-        nil
+        @grid.index("Z")
+        # nil
       end
     end
 
@@ -74,6 +74,36 @@ module AlphabetPlace
       candidates = Set.new('A'..'Y')
       return Set[] if @grid.cell(x, y) != 'Z'
       candidates - row_cells(@grid, y) - col_cells(@grid, x) - block_cells(@grid, x, y)
+    end
+
+    def block_xrange(n)
+      case (n - 1) % 5
+      when 0
+        (1..5).to_a
+      when 1
+        (6..10).to_a
+      when 2
+        (11..15).to_a
+      when 3
+        (16..20).to_a
+      when 4
+        (21..25).to_a
+      end
+    end
+
+    def block_yrange(n)
+      case (n - 1) / 5
+      when 0
+        (1..5).to_a
+      when 1
+        (6..10).to_a
+      when 2
+        (11..15).to_a
+      when 3
+        (16..20).to_a
+      when 4
+        (21..25).to_a
+      end
     end
 
     private 

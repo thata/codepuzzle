@@ -33,6 +33,15 @@ SZPZBZZNZZZGZUZZKCZZZARIZ
 GRID25
   end
 
+  def test_block_range
+    solver = AlphabetPlace::Solver.new(nil)
+    assert_equal([1, 2, 3, 4, 5], solver.block_xrange(1))
+    assert_equal([6, 7, 8, 9, 10], solver.block_xrange(2))
+    assert_equal([21, 22, 23, 24, 25], solver.block_xrange(5))
+    assert_equal([1, 2, 3, 4, 5], solver.block_xrange(6))
+    assert_equal([21, 22, 23, 24, 25], solver.block_xrange(25))
+  end
+
   def test_block_cells
     grid = <<GRID25.delete("\n")
 AZZZZBZZZZCCZZZDZZZZEFZZZ
@@ -140,7 +149,7 @@ GRID25
 ABCDE
 FGHIJ
 KLMNO
-PQZZZ
+PQRST
 ZZZZZ
 GRID
     assert_equal(<<GRID.delete("\n"), solver.solve())

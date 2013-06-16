@@ -44,7 +44,9 @@ module AlphabetPlace
 
     def apply_partial_grid(partial_grid)
       # XXX 雑に実装
-      @grid.sub("ZZZZ", partial_grid[0])
+      result = []
+      result << @grid.sub("ZZZZ", partial_grid[0])
+      result
     end
 
     def solve_with_partial_grid

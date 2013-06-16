@@ -42,7 +42,7 @@ HIJKL
 MNOPQ
 STVWX
 GRID5
-    expect = <<GRID5
+    expect = [<<GRID5]
 RUBYA
 CDEFG
 HIJKL

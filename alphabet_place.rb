@@ -43,9 +43,13 @@ module AlphabetPlace
     end
 
     def apply_partial_grid(partial_grid)
+      h = partial_grid[0]
+      v = partial_grid[1]
+
       # XXX 雑に実装
       result = []
-      result << @grid.sub("ZZZZ", partial_grid[0])
+      binding.pry
+      result << @grid.sub("ZZZZ", h)
       result
     end
 

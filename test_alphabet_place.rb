@@ -34,15 +34,16 @@ GRID25
   end
 
   def test_partial_grid
+    # 候補がひとつのみ
     partial_grid = ['RUBY', nil]
-    grid = <<GRID5
+    grid = <<GRID5.delete("\n")
 ZZZZA
 CDEFG
 HIJKL
 MNOPQ
 STVWX
 GRID5
-    expect = [<<GRID5]
+    expect = [<<GRID5.delete("\n")]
 RUBYA
 CDEFG
 HIJKL
@@ -51,9 +52,37 @@ STVWX
 GRID5
     solver = AlphabetPlace::Solver.new(grid)
     assert_equal(expect, solver.apply_partial_grid(partial_grid))
+
+    # 候補がふたつ
+    partial_grid = ['RUBY', nil]
+    grid = <<GRID5.delete("\n")
+ZZZZA
+CDEFG
+HIJKL
+MNOPQ
+SZZZZ
+GRID5
+    expect = [<<GRID5_1.delete("\n"), <<GRID5_2.delete("\n")]
+RUBYA
+CDEFG
+HIJKL
+MNOPQ
+STVWX
+GRID5_1
+ZZZZA
+CDEFG
+HIJKL
+MNOPQ
+SRUBY
+GRID5_2
+
+    solver = AlphabetPlace::Solver.new(grid)
+    assert_equal(expect, solver.apply_partial_grid(partial_grid))
   end
 
   def test_block_cells
+    String.grid_size = 25
+
     grid = <<GRID25.delete("\n")
 AZZZZBZZZZCCZZZDZZZZEFZZZ
 ZZZZZZZZZZZZZZZZZZZZZZZZZ

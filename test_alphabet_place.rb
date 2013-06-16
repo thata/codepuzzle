@@ -140,7 +140,7 @@ GRID25
 ABCDE
 FGHIJ
 KLMNO
-PQZZZ
+PQRST
 ZZZZZ
 GRID
     assert_equal(<<GRID.delete("\n"), solver.solve())

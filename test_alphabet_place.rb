@@ -33,6 +33,26 @@ SZPZBZZNZZZGZUZZKCZZZARIZ
 GRID25
   end
 
+  def test_partial_grid
+    partial_grid = ['RUBY', nil]
+    grid = <<GRID5
+ZZZZA
+CDEFG
+HIJKL
+MNOPQ
+STVWX
+GRID5
+    expect = <<GRID5
+RUBYA
+CDEFG
+HIJKL
+MNOPQ
+STVWX
+GRID5
+    solver = AlphabetPlace::Solver.new(grid)
+    assert_equal(expect, solver.apply_partial_grid(partial_grid))
+  end
+
   def test_block_cells
     grid = <<GRID25.delete("\n")
 AZZZZBZZZZCCZZZDZZZZEFZZZ

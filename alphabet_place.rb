@@ -42,6 +42,23 @@ module AlphabetPlace
       end
     end
 
+    def apply_partial_grid(partial_grid)
+      # XXX 雑に実装
+      @grid.sub("ZZZZ", partial_grid[0])
+    end
+
+    def solve_with_partial_grid
+      apply_partial_grid($partial_grid) do |grid|
+        saved_grid = grid.clone
+        @grid = grid.clone
+        if solve_with_backtracking
+          break
+        end
+        @grid = saved_grid
+      end
+      @gird
+    end
+
     def solve_with_backtracking
       solve_simple()                  # まず、答が確定するところは解き進めます
 
@@ -52,9 +69,9 @@ module AlphabetPlace
       # Z のマスに対して、候補を一つずつ仮置きしてみます
       x, y = @grid.index2pos(next_z)
       list_candidates(x, y).each{|k|
-        # debug
-        puts "---"
-        puts @grid.to_grid
+        # # debug
+        # puts "---"
+        # puts @grid.to_grid
 
         saved_grid = @grid.clone      # 盤面を保存しておく
         @grid.set_cell(x, y, k)       # 数字を仮置きする

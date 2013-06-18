@@ -142,8 +142,20 @@ AZC
 DEF
 GZZ
 GRID
+    # 一部マッチ 
     assert_equal(["ABCDEFGZZ"], solver.apply('AB'))
+    # Zのみの箇所にマッチ
     assert_equal(["AZCDEFGHI"], solver.apply('HI'))
+
+
+    solver = AlphabetPlace::Solver.new(<<GRID.delete("\n"))
+ABZ
+ZEF
+GHI
+GRID
+    # (ここから)
+    # 改行をまたいではマッチしない
+    assert_equal(["ABZZEFGHI"], solver.apply('CD'))
   end
 
   def test_solve_0_super_easy

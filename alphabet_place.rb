@@ -60,9 +60,13 @@ module AlphabetPlace
     end
 
     def apply(pattern)
-      regexp = Regexp.new(pattern.split(//).map {|c| ("[#{c}Z]") }.join) 
+      def _(grid, pattern)
+        regexp = Regexp.new(pattern.split(//).map {|c| ("[#{c}Z]") }.join) 
+        grid.sub(regexp, pattern)
+      end
+
       # XXX 改行を意識せず置き換える
-      [@grid.sub(regexp, pattern)]
+      [_(@grid, pattern)]
     end
 
     private 

@@ -142,7 +142,7 @@ AZC
 DEF
 GZZ
 GRID
-    assert_equal(["ABCDEFGHZ"], solver.apply('AB'))
+    assert_equal(["ABCDEFGZZ"], solver.apply('AB'))
     assert_equal(["AZCDEFGHI"], solver.apply('HI'))
   end
 
